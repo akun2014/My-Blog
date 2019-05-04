@@ -124,7 +124,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.0</version>
                 <configuration>
-                    <imageName>${docker.registryUrl}/${project.artifactId}:${project.version}</imageName>
+                    <imageName>${docker.registryUrl}/ownerkaka/${project.artifactId}:${project.version}</imageName>
                     <dockerDirectory>${project.basedir}/docker-extension/my-blog</dockerDirectory>
                     <resources>
                         <resource>
