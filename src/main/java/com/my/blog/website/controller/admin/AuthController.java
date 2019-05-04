@@ -9,7 +9,6 @@ import com.my.blog.website.model.Vo.UserVo;
 import com.my.blog.website.service.ILogService;
 import com.my.blog.website.service.IUserService;
 import com.my.blog.website.utils.TaleUtils;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -32,7 +32,7 @@ import java.io.IOException;
 @Transactional(rollbackFor = TipException.class)
 public class AuthController extends BaseController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     @Resource
     private IUserService usersService;
@@ -71,7 +71,7 @@ public class AuthController extends BaseController {
             if (e instanceof TipException) {
                 msg = e.getMessage();
             } else {
-                LOGGER.error(msg, e);
+                log.error(msg, e);
             }
             return RestResponseBo.fail(msg);
         }
@@ -96,7 +96,7 @@ public class AuthController extends BaseController {
             response.sendRedirect("/admin/login");
         } catch (IOException e) {
             e.printStackTrace();
-            LOGGER.error("注销失败", e);
+            log.error("注销失败", e);
         }
     }
 

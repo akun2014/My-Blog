@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Service
 public class AttachServiceImpl implements IAttachService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AttachServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(AttachServiceImpl.class);
 
     @Resource
     private AttachVoMapper attachDao;

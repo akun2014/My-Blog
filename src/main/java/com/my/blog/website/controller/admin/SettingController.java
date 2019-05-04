@@ -29,7 +29,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin/setting")
 public class SettingController extends BaseController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SettingController.class);
+    private static final Logger log = LoggerFactory.getLogger(SettingController.class);
 
     @Resource
     private IOptionService optionService;
@@ -104,7 +104,7 @@ public class SettingController extends BaseController {
             if (e instanceof TipException) {
                 msg = e.getMessage();
             } else {
-                LOGGER.error(msg, e);
+                log.error(msg, e);
             }
             return RestResponseBo.fail(msg);
         }

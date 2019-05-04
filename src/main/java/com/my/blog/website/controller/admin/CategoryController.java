@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("admin/category")
 public class CategoryController extends BaseController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
+    private static final Logger log = LoggerFactory.getLogger(CategoryController.class);
 
     @Resource
     private IMetaService metasService;
@@ -43,7 +43,7 @@ public class CategoryController extends BaseController {
             metasService.saveMeta(Types.CATEGORY.getType(), cname, mid);
         } catch (Exception e) {
             String msg = "分类保存失败";
-            LOGGER.error(msg, e);
+            log.error(msg, e);
             return RestResponseBo.fail(msg);
         }
         return RestResponseBo.ok();
@@ -56,7 +56,7 @@ public class CategoryController extends BaseController {
             metasService.delete(mid);
         } catch (Exception e) {
             String msg = "删除失败";
-            LOGGER.error(msg, e);
+            log.error(msg, e);
             return RestResponseBo.fail(msg);
         }
         return RestResponseBo.ok();

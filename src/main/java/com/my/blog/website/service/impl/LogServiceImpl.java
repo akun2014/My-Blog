@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 public class LogServiceImpl implements ILogService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LogServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(LogServiceImpl.class);
 
     @Resource
     private LogVoMapper logDao;
@@ -43,7 +43,7 @@ public class LogServiceImpl implements ILogService {
 
     @Override
     public List<LogVo> getLogs(int page, int limit) {
-        LOGGER.debug("Enter getLogs method:page={},linit={}",page,limit);
+        log.debug("Enter getLogs method:page={},linit={}",page,limit);
         if (page <= 0) {
             page = 1;
         }
@@ -54,7 +54,7 @@ public class LogServiceImpl implements ILogService {
         logVoExample.setOrderByClause("id desc");
         PageHelper.startPage((page - 1) * limit, limit);
         List<LogVo> logVos = logDao.selectByExample(logVoExample);
-        LOGGER.debug("Exit getLogs method");
+        log.debug("Exit getLogs method");
         return logVos;
     }
 }

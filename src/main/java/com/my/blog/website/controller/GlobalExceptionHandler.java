@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(value = TipException.class)
     public String tipException(Exception e) {
-        LOGGER.error("find exception:e={}",e.getMessage());
+        log.error("find exception:e={}",e.getMessage());
         e.printStackTrace();
         return "comm/error_500";
     }
@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public String exception(Exception e){
-        LOGGER.error("find exception:e={}",e.getMessage());
+        log.error("find exception:e={}",e.getMessage());
         e.printStackTrace();
         return "comm/error_404";
     }

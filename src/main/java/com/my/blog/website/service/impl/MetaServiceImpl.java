@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Service
 public class MetaServiceImpl implements IMetaService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MetaServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(MetaServiceImpl.class);
 
     @Resource
     private MetaVoMapper metaDao;

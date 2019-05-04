@@ -30,7 +30,7 @@ import java.util.List;
  */
 @Service
 public class ContentServiceImpl implements IContentService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ContentServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(ContentServiceImpl.class);
 
     @Resource
     private ContentVoMapper contentDao;
@@ -99,14 +99,14 @@ public class ContentServiceImpl implements IContentService {
 
     @Override
     public PageInfo<ContentVo> getContents(Integer p, Integer limit) {
-        LOGGER.debug("Enter getContents method");
+        log.debug("Enter getContents method");
         ContentVoExample example = new ContentVoExample();
         example.setOrderByClause("created desc");
         example.createCriteria().andTypeEqualTo(Types.ARTICLE.getType()).andStatusEqualTo(Types.PUBLISH.getType());
         PageHelper.startPage(p, limit);
         List<ContentVo> data = contentDao.selectByExampleWithBLOBs(example);
         PageInfo<ContentVo> pageInfo = new PageInfo<>(data);
-        LOGGER.debug("Exit getContents method");
+        log.debug("Exit getContents method");
         return pageInfo;
     }
 

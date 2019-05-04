@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("admin/page")
 public class PageController extends BaseController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageController.class);
+    private static final Logger log = LoggerFactory.getLogger(PageController.class);
 
     @Resource
     private IContentService contentsService;

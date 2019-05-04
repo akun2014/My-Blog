@@ -17,7 +17,7 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class LogAspect {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LogAspect.class);
+    private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
 
     @Pointcut("execution(public * com.my.blog.website.controller..*.*(..))")
     public void webLog() {
@@ -29,12 +29,12 @@ public class LogAspect {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         // 记录下请求内容
-        LOGGER.info("URL : " + request.getRequestURL().toString() + ",IP : " + request.getRemoteAddr() + ",CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + ",ARGS : " + Arrays.toString(joinPoint.getArgs()));
+        log.info("URL : " + request.getRequestURL().toString() + ",IP : " + request.getRemoteAddr() + ",CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + ",ARGS : " + Arrays.toString(joinPoint.getArgs()));
     }
 
     @AfterReturning(returning = "object", pointcut = "webLog()")
     public void doAfterReturning(Object object) {
         // 处理完请求，返回内容
-        LOGGER.info("RESPONSE : " + object);
+        log.info("RESPONSE : " + object);
     }
 }

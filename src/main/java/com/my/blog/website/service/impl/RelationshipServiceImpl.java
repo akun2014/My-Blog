@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Service
 public class RelationshipServiceImpl implements IRelationshipService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RelationshipServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(RelationshipServiceImpl.class);
 
     @Resource
     private RelationshipVoMapper relationshipVoMapper;
@@ -54,7 +54,7 @@ public class RelationshipServiceImpl implements IRelationshipService {
 
     @Override
     public Long countById(Integer cid, Integer mid) {
-        LOGGER.debug("Enter countById method:cid={},mid={}",cid,mid);
+        log.debug("Enter countById method:cid={},mid={}",cid,mid);
         RelationshipVoExample relationshipVoExample = new RelationshipVoExample();
         RelationshipVoExample.Criteria criteria = relationshipVoExample.createCriteria();
         if (cid != null) {
@@ -64,7 +64,7 @@ public class RelationshipServiceImpl implements IRelationshipService {
             criteria.andMidEqualTo(mid);
         }
         long num = relationshipVoMapper.countByExample(relationshipVoExample);
-        LOGGER.debug("Exit countById method return num={}",num);
+        log.debug("Exit countById method return num={}",num);
         return num;
     }
 }

@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("admin/links")
 public class LinksController extends BaseController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LinksController.class);
+    private static final Logger log = LoggerFactory.getLogger(LinksController.class);
 
     @Resource
     private IMetaService metasService;
@@ -53,7 +53,7 @@ public class LinksController extends BaseController {
             }
         } catch (Exception e) {
             String msg = "友链保存失败";
-            LOGGER.error(msg, e);
+            log.error(msg, e);
             return RestResponseBo.fail(msg);
         }
         return RestResponseBo.ok();
@@ -66,7 +66,7 @@ public class LinksController extends BaseController {
             metasService.delete(mid);
         } catch (Exception e) {
             String msg = "友链删除失败";
-            LOGGER.error(msg, e);
+            log.error(msg, e);
             return RestResponseBo.fail(msg);
         }
         return RestResponseBo.ok();

@@ -36,7 +36,7 @@ import java.util.List;
 @RequestMapping("admin/attach")
 public class AttachController extends BaseController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AttachController.class);
+    private static final Logger log = LoggerFactory.getLogger(AttachController.class);
 
     public static final String CLASSPATH = TaleUtils.getUploadFilePath();
 
@@ -112,7 +112,7 @@ public class AttachController extends BaseController {
             logService.insertLog(LogActions.DEL_ARTICLE.getAction(), attach.getFkey(), request.getRemoteAddr(), this.getUid(request));
         } catch (Exception e) {
             String msg = "附件删除失败";
-            LOGGER.error(msg, e);
+            log.error(msg, e);
             return RestResponseBo.fail(msg);
         }
         return RestResponseBo.ok();

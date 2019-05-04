@@ -20,22 +20,22 @@ import java.util.Map;
 @Service
 public class OptionServiceImpl implements IOptionService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OptionServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(OptionServiceImpl.class);
 
     @Resource
     private OptionVoMapper optionDao;
 
     @Override
     public void insertOption(OptionVo optionVo) {
-        LOGGER.debug("Enter insertOption method:optionVo={}", optionVo);
+        log.debug("Enter insertOption method:optionVo={}", optionVo);
         optionDao.insertSelective(optionVo);
-        LOGGER.debug("Exit insertOption method.");
+        log.debug("Exit insertOption method.");
     }
 
     @Override
     @Transactional
     public void insertOption(String name, String value) {
-        LOGGER.debug("Enter insertOption method:name={},value={}", name, value);
+        log.debug("Enter insertOption method:name={},value={}", name, value);
         OptionVo optionVo = new OptionVo();
         optionVo.setName(name);
         optionVo.setValue(value);
@@ -44,7 +44,7 @@ public class OptionServiceImpl implements IOptionService {
         } else {
             optionDao.updateByPrimaryKeySelective(optionVo);
         }
-        LOGGER.debug("Exit insertOption method.");
+        log.debug("Exit insertOption method.");
     }
 
     @Override

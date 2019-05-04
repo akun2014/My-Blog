@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("admin/comments")
 public class CommentController extends BaseController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CommentController.class);
+    private static final Logger log = LoggerFactory.getLogger(CommentController.class);
 
     @Resource
     private ICommentService commentsService;
@@ -56,7 +56,7 @@ public class CommentController extends BaseController {
             commentsService.delete(coid, comments.getCid());
         } catch (Exception e) {
             String msg = "评论删除失败";
-            LOGGER.error(msg, e);
+            log.error(msg, e);
             return RestResponseBo.fail(msg);
         }
         return RestResponseBo.ok();

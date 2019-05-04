@@ -34,7 +34,7 @@ import java.util.List;
 @Transactional(rollbackFor = TipException.class)
 public class ArticleController extends BaseController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
+    private static final Logger log = LoggerFactory.getLogger(ArticleController.class);
 
     @Resource
     private IContentService contentsService;

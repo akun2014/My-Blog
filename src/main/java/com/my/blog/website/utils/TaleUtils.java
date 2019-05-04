@@ -42,7 +42,7 @@ import com.my.blog.website.model.Vo.UserVo;
  * Created by 13 on 2017/2/21.
  */
 public class TaleUtils {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TaleUtils.class);
+    private static final Logger log = LoggerFactory.getLogger(TaleUtils.class);
     /**
      * 一个月
      */
@@ -86,7 +86,7 @@ public class TaleUtils {
             InputStream resourceAsStream = new FileInputStream(fileName);
             properties.load(resourceAsStream);
         } catch (TipException | IOException e) {
-            LOGGER.error("get properties file fail={}", e.getMessage());
+            log.error("get properties file fail={}", e.getMessage());
         }
         return properties;
     }
@@ -262,7 +262,7 @@ public class TaleUtils {
         try {
             response.sendRedirect(Commons.site_url());
         } catch (IOException e) {
-            LOGGER.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
         }
     }
 

@@ -39,7 +39,7 @@ import java.util.List;
  */
 @Controller
 public class IndexController extends BaseController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+    private static final Logger log = LoggerFactory.getLogger(IndexController.class);
 
     @Resource
     private IContentService contentService;
@@ -234,7 +234,7 @@ public class IndexController extends BaseController {
             return RestResponseBo.ok();
         } catch (Exception e) {
             String msg = "评论发布失败";
-            LOGGER.error(msg, e);
+            log.error(msg, e);
             return RestResponseBo.fail(msg);
         }
     }
