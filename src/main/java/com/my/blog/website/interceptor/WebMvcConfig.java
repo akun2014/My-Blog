@@ -8,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 向mvc中添加自定义组件
@@ -18,9 +20,19 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Resource
     private BaseInterceptor baseInterceptor;
 
+    private static final List<String> EXCLUDE_PATTERN = new ArrayList<>();
+
+    static {
+        EXCLUDE_PATTERN.add("/**/**.css");
+        EXCLUDE_PATTERN.add("/**/**.js");
+        EXCLUDE_PATTERN.add("/**/**.png");
+        EXCLUDE_PATTERN.add("/**/**.gif");
+        EXCLUDE_PATTERN.add("/**/**.jpg");
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(baseInterceptor);
+        registry.addInterceptor(baseInterceptor).excludePathPatterns(EXCLUDE_PATTERN);
     }
 
     /**

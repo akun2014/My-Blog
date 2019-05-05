@@ -9,15 +9,12 @@ import com.my.blog.website.service.IUserService;
 import com.my.blog.website.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * 自定义拦截器
@@ -42,33 +39,13 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
     @Resource
     private AdminCommons adminCommons;
 
-    private AntPathMatcher antPathMatcher = new AntPathMatcher();
-
-    private static final Set<String> excludePattern = new HashSet<>();
-
-    static {
-        excludePattern.add("/**/**.css");
-        excludePattern.add("/**/**.js");
-        excludePattern.add("/**/**.png");
-        excludePattern.add("/**/**.gif");
-        excludePattern.add("/**/**.jpg");
-    }
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         String contextPath = request.getContextPath();
         String uri = request.getRequestURI();
 
-        for (String pattern : excludePattern) {
-            boolean match = antPathMatcher.match(pattern, uri);
-            if (match) {
-                return true;
-            }
-        }
-
         log.info("UserAgent: {}", request.getHeader(USER_AGENT));
         log.info("用户访问地址: {}, 来路地址: {}", uri, IPKit.getIpAddrByRequest(request));
-
 
         //请求拦截处理
         UserVo user = TaleUtils.getLoginUser(request);
