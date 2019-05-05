@@ -1,29 +1,31 @@
 package com.my.blog.website.interceptor;
 
+import com.my.blog.website.constant.WebConst;
+import com.my.blog.website.dto.Types;
 import com.my.blog.website.model.Vo.OptionVo;
 import com.my.blog.website.model.Vo.UserVo;
 import com.my.blog.website.service.IOptionService;
 import com.my.blog.website.service.IUserService;
 import com.my.blog.website.utils.*;
-import com.my.blog.website.constant.WebConst;
-import com.my.blog.website.dto.Types;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 自定义拦截器
  * Created by BlueT on 2017/3/9.
  */
 @Component
-public class BaseInterceptor implements HandlerInterceptor {
-    private static final Logger log = LoggerFactory.getLogger(BaseInterceptor.class);
+@Slf4j
+public class BaseInterceptor extends HandlerInterceptorAdapter {
     private static final String USER_AGENT = "user-agent";
 
     @Resource
@@ -40,11 +42,29 @@ public class BaseInterceptor implements HandlerInterceptor {
     @Resource
     private AdminCommons adminCommons;
 
+    private AntPathMatcher antPathMatcher = new AntPathMatcher();
+
+    private static final Set<String> excludePattern = new HashSet<>();
+
+    static {
+        excludePattern.add("/**/**.css");
+        excludePattern.add("/**/**.js");
+        excludePattern.add("/**/**.png");
+        excludePattern.add("/**/**.gif");
+        excludePattern.add("/**/**.jpg");
+    }
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         String contextPath = request.getContextPath();
-        // System.out.println(contextPath);
         String uri = request.getRequestURI();
+
+        for (String pattern : excludePattern) {
+            boolean match = antPathMatcher.match(pattern, uri);
+            if (match) {
+                return true;
+            }
+        }
 
         log.info("UserAgent: {}", request.getHeader(USER_AGENT));
         log.info("用户访问地址: {}, 来路地址: {}", uri, IPKit.getIpAddrByRequest(request));
@@ -80,10 +100,5 @@ public class BaseInterceptor implements HandlerInterceptor {
         httpServletRequest.setAttribute("commons", commons);//一些工具类和公共方法
         httpServletRequest.setAttribute("option", ov);
         httpServletRequest.setAttribute("adminCommons", adminCommons);
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-
     }
 }
